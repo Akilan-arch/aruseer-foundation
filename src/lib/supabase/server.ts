@@ -5,8 +5,8 @@ import { cookies } from "next/headers";
 export async function createClient() {
   const cookieStore = await cookies();
   return createServerClient(
-    "https://vzrgwbidejufcideatmx.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ6cmd3YmlkZWp1ZmNpZGVhdG14Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNTE1OTgsImV4cCI6MjA5MjkyNzU5OH0.MIVlrx8BZw_wHnhFKucyHOdo-0W30GA9U5MLz0ftTIw",
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() { return cookieStore.getAll(); },
@@ -24,8 +24,8 @@ export async function createClient() {
 
 export function createAdminClient() {
   return createSupabaseClient(
-    "https://vzrgwbidejufcideatmx.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ6cmd3YmlkZWp1ZmNpZGVhdG14Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzM1MTU5OCwiZXhwIjoyMDkyOTI3NTk4fQ.1HxMejqRQzYFTeEs8Dor9gK4OKjw-q_dPWQyVSrDftU",
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
     {
       auth: {
         autoRefreshToken: false,
