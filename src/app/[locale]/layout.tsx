@@ -10,19 +10,25 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: Locale }>; }) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
-  if (!locales.includes(locale)) redirect("/en");
-  const dict = await getDictionary(locale);
+  if (!locales.includes(locale as Locale)) redirect("/en");
+  const dict = await getDictionary(locale as Locale);
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      <Navbar locale={locale} nav={dict.nav} />
+      <Navbar locale={locale as Locale} nav={dict.nav} />
       <main style={{ flex: 1 }}>
         <PageTransition>
           {children}
         </PageTransition>
       </main>
-      <Footer locale={locale} footer={dict.footer} />
+      <Footer locale={locale as Locale} footer={dict.footer} />
       <Chatbot locale={locale} />
     </div>
   );
